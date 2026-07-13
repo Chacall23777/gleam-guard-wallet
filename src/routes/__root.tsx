@@ -87,10 +87,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Console operacional para gestão de carteiras Solana com controle de acesso por função.",
+          "Console operacional para gestão de carteiras Solana: consolidação, trades em massa e auditoria com controle de acesso por função.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Chacal Wallet Manager" },
+      { name: "twitter:description", content: "Console operacional para gestão de carteiras Solana: consolidação, trades em massa e auditoria com controle de acesso por função." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b0b566f0-c51d-40fc-816c-63adf04648a3/id-preview-e0d05753--70652306-b50f-4bff-bf7e-dceba66ef3b3.lovable.app-1783905327284.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b0b566f0-c51d-40fc-816c-63adf04648a3/id-preview-e0d05753--70652306-b50f-4bff-bf7e-dceba66ef3b3.lovable.app-1783905327284.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
