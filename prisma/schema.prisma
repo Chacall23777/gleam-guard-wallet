@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  login         String    @unique
+  email         String    @unique
+  password      String
+  phone         String?
+  role          Role      @default(OPERATOR)
+  status        Status    @default(ACTIVE)
+  avatar        String?
+  lastAccess    DateTime?
+  createdAt     DateTime  @default(now())
+  wallets       Wallet[]
+  logs          Log[]
+}
+
+model Wallet {
+  id                  String   @id @default(cuid())
+  name                String
+  address             String   @unique
+  encryptedPrivateKey String
+  description         String?
+  isFavorite          Boolean  @default(false)
+  userId              String
+  user                User     @relation(fields: [userId], references: [id])
+  createdAt           DateTime @default(now())
+  transactions        Transaction[]
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  type        TxType
+  fromAddress String?
+  toAddress   String?
+  amount      String
+  tokenMint   String?
+  signature   String?
+  status      TxStatus  @default(PENDING)
+  createdAt   DateTime  @default(now())
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  action    String
+  userId    String
+  details   Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  MASTER
+  ADMIN
+  OPERATOR
+  AUDITOR
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum TxType {
+  TRANSFER
+  CONSOLIDATION
+  CREATE_WALLET
+  IMPORT
+  BUY
+  SELL
+}
+
+enum TxStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+}
